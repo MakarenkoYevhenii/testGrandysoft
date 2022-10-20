@@ -1,16 +1,14 @@
 import { Component } from "react";
 
 class CanvasComponent extends Component {
-
   painting = true;
-
+  stroke = false;
+  figures = [];
   componentDidMount() {
     this.updateCanvas();
-    
   }
   componentDidUpdate() {
     this.updateCanvas();
-    
   }
   updateCanvas() {
     this.ctx = this.refs.canvas.getContext("2d");
@@ -21,18 +19,28 @@ class CanvasComponent extends Component {
     this.ctx.lineTo(0, 501);
     this.ctx.closePath();
     this.ctx.stroke();
-    
   }
 
+  update(el) {
+    console.log(this)
+    this.ctx.beginPath();
+    this.ctx.moveTo(el.dotX, el.dotY);
+    this.ctx.lineTo(el.secondDotX, el.secondDotY);
+    this.ctx.closePath();
+    this.ctx.stroke();
+  };
+  renderSaveLines() {
+    this.figures.map((el) => this.update(el));
+  }
   paintLine(e) {
-
     if (this.painting) {
-        return;
+      return;
     }
-
     this.secondDotX = e.pageX - 510;
     this.secondDotY = e.pageY;
     this.ctx.clearRect(1, 1, 499, 499);
+    this.renderSaveLines();
+    // this.update()
     if (!this.painting) {
       this.ctx.beginPath();
       this.ctx.moveTo(this.dotX, this.dotY);
@@ -40,12 +48,23 @@ class CanvasComponent extends Component {
       this.ctx.closePath();
       this.ctx.stroke();
     }
-}
-onClick(e) {
+  }
+
+  onClick(e) {
+    if (this.painting) {
+      this.dotX = e.pageX - 510;
+      this.dotY = e.pageY;
+    }
     this.stroke = !this.stroke;
     this.painting = !this.painting;
-    this.dotX = e.pageX - 510;
-    this.dotY = e.pageY;
+    if (!this.stroke) {
+      this.figures.push({
+        dotX: this.dotX,
+        dotY: this.dotY,
+        secondDotY: this.secondDotY,
+        secondDotX: this.secondDotX,
+      });
+    }
   }
 
   render() {
