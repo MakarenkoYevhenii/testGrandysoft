@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/testGrandysoft/static/css/main.a92b8c78.css",
+    "main.js": "/testGrandysoft/static/js/main.abfe24ba.js",
+    "index.html": "/testGrandysoft/index.html",
+    "main.a92b8c78.css.map": "/testGrandysoft/static/css/main.a92b8c78.css.map",
+    "main.abfe24ba.js.map": "/testGrandysoft/static/js/main.abfe24ba.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a92b8c78.css",
+    "static/js/main.abfe24ba.js"
+  ]
+}
