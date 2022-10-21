@@ -1,9 +1,14 @@
 import { Component } from "react";
-
+import ButtonComponent from "../share/ButtonnComponent/ButtonComponent";
+import style from "./Canvas.module.css"
 class CanvasComponent extends Component {
+  
+
+   
   painting = true;
   stroke = false;
   figures = [];
+
   componentDidMount() {
     this.updateCanvas();
   }
@@ -19,10 +24,9 @@ class CanvasComponent extends Component {
     this.ctx.lineTo(0, 501);
     this.ctx.closePath();
     this.ctx.stroke();
-  }
 
+  }
   update(el) {
-    console.log(this)
     this.ctx.beginPath();
     this.ctx.moveTo(el.dotX, el.dotY);
     this.ctx.lineTo(el.secondDotX, el.secondDotY);
@@ -36,8 +40,8 @@ class CanvasComponent extends Component {
     if (this.painting) {
       return;
     }
-    this.secondDotX = e.pageX - 510;
-    this.secondDotY = e.pageY;
+    this.secondDotX = e.pageX-80;
+    this.secondDotY = e.pageY-80;
     this.ctx.clearRect(1, 1, 499, 499);
     this.renderSaveLines();
     // this.update()
@@ -52,8 +56,8 @@ class CanvasComponent extends Component {
 
   onClick(e) {
     if (this.painting) {
-      this.dotX = e.pageX - 510;
-      this.dotY = e.pageY;
+      this.dotX = e.pageX-80;
+      this.dotY = e.pageY-80;
     }
     this.stroke = !this.stroke;
     this.painting = !this.painting;
@@ -66,17 +70,23 @@ class CanvasComponent extends Component {
       });
     }
   }
-
+  ButtonClearCanvas=()=>{
+    this.ctx.clearRect(1, 1, 499, 499);
+    }
   render() {
+    
     return (
+<>
       <canvas
-        ref="canvas"
+      ref="canvas"
         width={501}
         height={501}
         onClick={(e) => this.onClick(e)}
         onMouseMove={(e) => this.paintLine(e)}
-      />
-    );
+        className={style.canvas}
+        />
+        <ButtonComponent onClick={this.ButtonClearCanvas}></ButtonComponent>
+    </>);
   }
 }
 

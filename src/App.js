@@ -1,13 +1,24 @@
+import { Component, useState } from "react";
+import style from "./App.module.css"
 
-import './App.css';
 import CanvasComponent from './CanvasComponent/CanvasComponent';
+import ButtonComponent from './share/ButtonnComponent/ButtonComponent';
 
-function App() {
+class App extends Component {
+  state={
+    clearCanvas:false
+  }
+
+   ButtonClearCanvas=()=>{
+  return this.state.clearCanvas=!this.state.clearCanvas
+  }
+  render(){
   return (
-    <div className="App">
-      <CanvasComponent></CanvasComponent>
+    <div className={style.App}>
+      <CanvasComponent clearCanvas={this.state.clearCanvas} ></CanvasComponent>
+      
     </div>
-  );
+  );}
 }
 
 export default App;
